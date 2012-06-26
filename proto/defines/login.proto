@@ -1,0 +1,29 @@
+package netmsg;
+
+message LoginRequest {
+	enum Msg {
+		_category = 0;
+		_msgId = 1;
+	};
+	required string username = 1;
+	required string passwd = 2;
+	optional int32 charactorIndex = 3;
+}
+
+message ServerLoginRequest {
+	enum Msg {
+		_category = 4;
+		_msgId = 1;
+	};
+
+	required string username = 1;
+	required string passwd = 2;
+	required string servername = 3;
+}
+
+message Logout {
+	enum Msg {
+		_category = 0;
+		_msgId = 2;
+	};
+}

@@ -1,0 +1,18 @@
+package netmsg;
+
+message MovePathRequest {
+	enum Msg {
+		_category = 0;
+		_msgId = 20;
+	};
+	repeated uint32 path = 1;
+};
+
+message MoveRequest {
+	enum Msg {
+		_category = 0;
+		_msgId = 21;
+	};
+	required int32 x = 1;
+	required int32 y = 2;
+}
