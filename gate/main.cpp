@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 		frameTimeAcc += now - lastFrameTime;
 		if (frameTimeAcc >= GateFpsMillis) {
 			Gate::instance().update(frameTimeAcc);	
-			printf("xxxx %ld \n", frameTimeAcc);
+			//printf("xxxx %ld \n", frameTimeAcc);
 			frameTimeAcc -= GateFpsMillis;
 		}
 		lastFrameTime = now;

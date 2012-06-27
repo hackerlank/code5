@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _INETWORK_H
+#define _INETWORK_H
+
 #include "Socket.h"
 #include "Coder.h"
 
@@ -18,3 +20,5 @@ public:
 
 	virtual void closeSocket(SocketHandle* sock) = 0;
 };
+
+#endif

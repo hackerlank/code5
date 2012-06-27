@@ -1,15 +1,8 @@
-all: login.pb.cc move.pb.cc
+#all: login_pb2.py move_pb2.py
 
-login.pb.cc : defines/login.proto
-	protoc -I=defines --cpp_out=. defines/login.proto
+OBJS += proto/move.pb.o proto/login.pb.o
+INCS += proto/login.pb.h proto/move.pb.h
 
-move.pb.cc	:	defines/move.proto
-	protoc -I=defines --cpp_out=. defines/move.proto
+proto/%.o : proto/%.cc
+	g++ -c -o $@ $<
 
-python: login_pb2.py move_pb2.py
-
-login_pb2.py : defines/login.proto
-	protoc -I=defines --python_out=. $<
-
-move_pb2.py	:	defines/move.proto
-	protoc -I=defines --python_out=. $<

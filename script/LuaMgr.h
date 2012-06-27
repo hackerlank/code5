@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _LUA_MGR_H
+#define _LUA_MGR_H
 
 //#include <luabind/luabind.hpp>
 #include "Script.h"
@@ -34,3 +35,5 @@ public:
 private:
 	lua_State* m_state;
 }; 
+
+#endif

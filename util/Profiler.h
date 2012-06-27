@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _PROFILER_H
+#define _RROFILER_H
 
 #include <string>
 #include <stdio.h>
@@ -24,3 +25,4 @@ public:
 	const char* mFunction;
 };
 
+#endif

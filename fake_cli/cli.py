@@ -35,10 +35,10 @@ msg3.x = 33
 msg3.y = 88
 
 
-#while(True):
+while(True):
 #	time.sleep(1)
-s.send(packMsgBuffer(msg2))
+	s.send(packMsgBuffer(msg2))
 #	time.sleep(2)
-#s.send(packMsgBuffer(msg3))
+	s.send(packMsgBuffer(msg3))
 
 

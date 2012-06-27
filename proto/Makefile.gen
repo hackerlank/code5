@@ -1,0 +1,16 @@
+all: move.pb.cc login.pb.cc login_pb.py move_pb.py
+
+login.pb.cc : defines/login.proto
+	protoc -I=defines --cpp_out=. $<
+
+move.pb.cc : defines/move.proto
+	protoc -I=defines --cpp_out=. $<
+
+login_pb.py : defines/login.proto
+	protoc -I=defines --python_out=. $<
+
+move_pb.py : defines/move.proto
+	protoc -I=defines --python_out=. $<
+
+clean:
+	rm -f *.pb.* *.py

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCRIPT_H
+#define _SCRIPT_H
 
 #include <string>
 using std::string;
@@ -43,3 +44,5 @@ public:
 
 	virtual ScriptValue call(const char* func) = 0;
 };
+
+#endif

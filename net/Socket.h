@@ -1,5 +1,5 @@
-
-#pragma once
+#ifndef _SOCK_H
+#define _SOCK_H
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -44,3 +44,5 @@ public:
 
 	void* userdata;
 };
+
+#endif

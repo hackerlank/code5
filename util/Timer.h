@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _TIMER_H
+#define _TIMER_H
 
 #ifdef _WIN32
 #include <Windows.h>
@@ -36,3 +37,5 @@ public:
 #endif
 	}
 };
+
+#endif

@@ -1,0 +1,1 @@
+INCS += pattern/Singleton.h

@@ -38,7 +38,7 @@ void EpollServer::close()
 
 void EpollServer::update()
 {
-	int eventCount = epoll_wait(m_epollfd, m_events, m_maxConn, 0);
+	int eventCount = epoll_wait(m_epollfd, m_events, m_maxConn, 100);
 	for (int i = 0; i < eventCount; ++i) {
 		epoll_event& e = m_events[i];
 		if (e.events & EPOLLIN) {

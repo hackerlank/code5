@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _CODER_MGR_H
+#define _CODER_MGR_H
 
 #include "Coder.h"
 #include <map>
@@ -18,3 +19,5 @@ private:
 	typedef map<int, Coder*> CoderMap;
 	CoderMap m_coders;
 };
+
+#endif

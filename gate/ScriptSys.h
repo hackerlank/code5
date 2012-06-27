@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _SCRIPT_SYS_H
+#define _SCRIPT_SYS_H
 
 #include "script/LuaMgr.h"
 
@@ -11,3 +12,5 @@ public:
 	ScriptSys();
 	bool init();
 };
+
+#endif
