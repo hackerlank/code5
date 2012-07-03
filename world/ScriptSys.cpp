@@ -1,9 +1,5 @@
 #include "ScriptSys.h"
 
-extern "C" {
-	#include "lauxlib.h"
-}
-
 ScriptSys& ScriptSys::instance()
 {
 	static ScriptSys* _script = 0;

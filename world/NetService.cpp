@@ -3,14 +3,14 @@
 #include <sys/ioctl.h>
 #include "net/CoderMgr.h"
 #include "MessageDescriptor.h"
-
+#include "util/concurrent/ScopeLock.h"
 #include <stdio.h>
 #include <errno.h>
 
 extern int errno;
 
 NetService::NetService()
-	:_connected(false)
+	:_connected(false), _looping(true)
 {
 
 }
@@ -32,6 +32,7 @@ bool NetService::connect() {
 
 MsgPair NetService::pop()
 {
+	ScopeLock lock(_lock);
 	if (_msgs.empty())
 		return MsgPair(0, NULL);
 
@@ -40,23 +41,19 @@ MsgPair NetService::pop()
 	return pair;
 }
 
-void NetService::send(player_id playerId, int msgId, Message* msg) {
-	if (!_connected)
-		return;
-
+PackData* NetService::packMsg(int msgId, Message* msg, int playerCnt)
+{
 	DataBuffer buffer = CoderMgr::instance().encode(msgId, msg);
 	if (!buffer.size)
-		return;
+		return NULL;
 
-	PackData* pack = PackData::create(buffer.size + sizeof(short));
+	PackData* pack = PackData::create(buffer.size + sizeof(short), playerCnt);
 	pack->size = buffer.size + sizeof(short);
-	*pack->playerId() = playerId;
+	//*pack->playerId() = playerId;
 	pack->packMsgId = msgId;
 	memcpy(pack->data, buffer.data, buffer.size);
-	if (playerId == -1)
-		_sock.send(pack->rawData(), pack->size + sizeof(short));
-	else
-		_sock.send(pack->rawData(), pack->size + sizeof(player_id) + sizeof(short));
+	
+	return pack;
 }
 
 void NetService::update()
@@ -119,5 +116,11 @@ ERROR:
 		pack = NULL;
 	}
 	return pack;
+}
 
+void NetService::run() {
+	while (_looping) {
+		update();
+		usleep(1);
+	}
 }

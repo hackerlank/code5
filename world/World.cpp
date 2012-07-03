@@ -4,6 +4,8 @@
 #include "NetService.h"
 #include "proto/login.pb.h"
 
+#include "ScriptSys.h"
+
 #include <stdio.h>
 
 using namespace std;
@@ -11,15 +13,22 @@ using namespace std;
 PQScheduler Scheduler(World::FrameTime);
 
 int World::init(const char* userName, const char* pwd, const char* serverName) {
+	//loadmap
+	ScriptSys::instance().init();
+	ScriptSys::instance().doFile("script/init.lua");
+
+	//init net
 	NetService::instance().init("127.0.0.1", 9913);
 	NetService::instance().connect();
 
+	//login to gate
 	netmsg::ServerLoginRequest msg;
 	msg.set_username(userName);
 	msg.set_passwd(pwd);
 	msg.set_servername(serverName);
 	NetService::instance().send(-1, &msg);
 
+	NetService::instance().start();
 	return 0;
 }
 
@@ -32,8 +41,6 @@ void World::update(long elapsed) {
 		s_timeAcc -= FrameTime;
 
 		//handle net request first
-		NetService::instance().update();
-
 		size_t msgHanlded = 0;
 		while (msgHanlded++ < MsgHandlePerFrame) {
 			MsgPair pair = NetService::instance().pop();

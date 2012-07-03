@@ -6,16 +6,16 @@
 class ScopeLock {
 public:
 	ScopeLock(Lock& lock)
-		:_lock(lock)
+		:_lock(&lock)
 	{
-		lock.lock();
+		_lock->lock();
 	}
 
 	~ScopeLock() {
-		_lock.unlock();
+		_lock->unlock();
 	}
 
 private:
-	Lock& _lock;
+	Lock* _lock;
 };
 #endif

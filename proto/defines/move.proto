@@ -16,3 +16,13 @@ message MoveRequest {
 	required int32 x = 1;
 	required int32 y = 2;
 }
+
+message MoveEvent {
+	enum Msg {
+		_category = 1;
+		_msgId = 22;
+	};
+	required int64 entityId = 1;
+	required int32 x = 2;
+	required int32 y = 3;
+};

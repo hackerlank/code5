@@ -43,8 +43,11 @@ struct PackData {
 	byte* rawData() {return (byte*)&size; };
 	byte* contentData(){ return (byte*)&packMsgId; }
 
-	static PackData* create(int size) {
-		return (PackData*)malloc(offsetof(PackData, packMsgId) + sizeof(player_id) + size);
+	static PackData* create(int size, int playerCnt = 1) {
+		if (playerCnt > 1)
+			++ playerCnt;
+
+		return (PackData*)malloc(offsetof(PackData, packMsgId) + sizeof(player_id) * playerCnt + size);
 	}
 
 	static short packId(short category, short msgId) {
