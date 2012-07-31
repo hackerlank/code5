@@ -32,7 +32,7 @@ void NetService::init(const char* ip, short port)
 
 	CoderMgr::instance().reg(g_msg_coders);
 
-	EpollServer::init(ip, port, 6000);
+	NetServerBase::init(ip, port, 6000);
 }
 
 PackData* NetService::recvPack(SocketHandle* sock, size_t size, size_t& totalRead )
@@ -148,7 +148,7 @@ void NetService::onConnected(SocketHandle* sock)
 	sock->setNonBlock(true);
 	_sock2session[sock] = (session_id)sock->m_sock;
 	_session2sock[sock->m_sock] = sock;
-	EpollServer::onConnected(sock);
+	NetServerBase::onConnected(sock);
 }
 
 void NetService::onDisconnected(SocketHandle* sock)
@@ -159,7 +159,7 @@ void NetService::onDisconnected(SocketHandle* sock)
 		_sock2session.erase(itr);
 		_session2sock.erase(itr->second);
 	}
-	EpollServer::onDisconnected(sock);
+	NetServerBase::onDisconnected(sock);
 }
 
 void NetService::sendSession(session_id session, PackData* pack, bool withPid)

@@ -1,37 +1,9 @@
-SRC = NetService.h NetService.cpp World.cpp World.h main.cpp
+OBJS += world/NetService.o world/World.o world/main.o world/MessageDescriptor.o \
+	world/AOIService.o world/Zone.o world/ScriptSys.o world/MapMgr.o \
+	world/Player.o
 
-objs = NetService.o World.o main.o MessageDescriptor.o AOIService.o \
-		Zone.o ScriptSys.o MapMgr.o
+INC += world/NetService.h world/World.h world/MessageDescriptor.h world/AOIService.h \
+	world/Zone.h world/scriptSys.h world/MapMgr.h 
 
-Wing : $(objs)
-	g++ -g -o $@ $(objs) $(incs) -I.. -L../lib -lnet -lprotobuf -lschedule -lnetmsg -lutil; cp $@ ../bin/
-
-NetService.o : NetService.cpp NetService.h
-	g++ -c -g $< -I.. -o $@
-
-World.o : World.cpp World.h
-	g++ -c -g $< -I../ -o $@ -I/usr/include/lua5.1
-
-main.o : main.cpp
-	g++ -c -g $< -I../ -o $@
-
-MessageDescriptor.o : MessageDescriptor.cpp MessageDescriptor.h
-	g++ -c -g $< -I../ -o $@
-
-Zone.o : Zone.cpp Zone.h
-	g++ -c -g $< -I../ -o $@
-
-AOIService.o : AOIService.cpp AOIService.h
-	g++ -c -g $< -I../ -o $@
-
-Player.o : Player.cpp Player.h
-	g++ -c -g $< -I../ -o $@
-
-MapMgr.o : MapMgr.cpp MapMgr.h MapMgr.h
-	g++ -c -g $< -I../ -o "$@" -I.
-
-ScriptSys.o : ScriptSys.cpp ScriptSys.h
-	g++ -c -g $< -I../ -o $@ -I/usr/include/lua5.1
-
-clean:
-	-rm -f Wing *.o
+world/%.o : world/%.cpp
+	g++ -I. -c -o "$@" "$<" -I/opt/local/include -I/usr/local/include

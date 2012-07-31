@@ -2,7 +2,6 @@
 #define _NETSERVICE_H
 
 #include "net/PackData.h"
-#include "net/EpollServer.h"
 #include "pattern/Singleton.h"
 #include "util/concurrent/Thread.h"
 #include "util/concurrent/Mutex.h"
@@ -23,7 +22,16 @@ enum ConState {
 	CSMax
 };
 
-class NetService : public EpollServer, public Singleton<NetService>, public Thread{
+#ifdef __linux__
+	#include "net/EpollServer.h"
+	typedef EpollServer NetServerBase ;
+#endif
+#ifdef  __APPLE__
+	#include "net/KQueueService.h"
+	typedef KQueueService NetServerBase;
+#endif
+
+class NetService : public NetServerBase, public Singleton<NetService>, public Thread{
 public:
 	typedef map<SocketHandle*, session_id> SessionMap;
 	typedef map<session_id, SocketHandle*> SocketMap;

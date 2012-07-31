@@ -5,7 +5,7 @@ INCS += gate/GateMsgCoder.h gate/ScriptSys.h gate/Gate.h gate/PlayerMgr.h \
 	gate/WorldMgr.h gate/Player.h
 
 gate/%.o : gate/%.cpp
-	g++ -c -o "$@" "$<" -I. -I/usr/include/lua5.1
+	g++ -c -o "$@" "$<" -I. -I/usr/local/include -I/opt/local/include
 
 #gate/ScriptSys.o : gate/ScriptSys.cpp gate/ScriptSys.h
 #	g++ -c -o "$@" "$<" -I. 

@@ -3,8 +3,7 @@
 
 #bin/gate : $(OBJS) #$(INCS)
 bin/gate : $(OBJS) 
-	g++ -o $@ -I. -I/usr/include/lua5.1 $(OBJS) -lprotobuf -llua -L3rd/lua-5.1.4/src
-	#g++ -o $@ -I. -I/usr/include/lua5.1 $(OBJS) $(INCS) 
+	g++ -o $@ -I. $(OBJS) -lprotobuf -llua 
 
 clean:
 	rm -f util/*.o util/concurrent/*.o net/*.o proto/*.o gate/*.o bin/gate

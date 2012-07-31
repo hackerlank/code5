@@ -1,8 +1,6 @@
-libschedule.a : PQScheduler.o IScheduler.h FuncSchedFeture.h 
-	ar rcs -o $@ PQScheduler.o; cp $@ ../lib
+OBJS += schedule/PQScheduler.o
 
-PQScheduler.o : PQScheduler.cpp PQScheduler.h IScheduler.h
-	g++ -c -o $@ PQScheduler.cpp -I..
+INC += schedule/IScheduler.h schedule/FuncSchedFeture.h schedule/PQScheduler.h
 
-clean:
-	-rm *.o libschedule.a
+schedule/%.o : schedule/%.cpp
+	g++ -c -o "$@" "$<" -I/opt/local/include -I.

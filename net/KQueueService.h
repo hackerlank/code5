@@ -1,13 +1,15 @@
 #include "INetwork.h"
 
-#ifdef __linux__
-#include <sys/epoll.h>
+#ifdef __APPLE__
+#include <sys/types.h>
+#include <sys/event.h>
+#include <sys/time.h>
 
-class EpollServer: public INetwork
+class KQueueService: public INetwork 
 {
 public:
-	EpollServer();
-	virtual ~EpollServer() {}
+	KQueueService();
+	virtual ~KQueueService();
 	
 	bool init(const char* ip, short port, const int maxCon);
 	void close();
@@ -17,10 +19,11 @@ public:
 	void onConnected(SocketHandle* sock);
 	void closeSocket(SocketHandle* sock);
 private:
-	Socket m_acceptSocket;
-	int	m_epollfd;
-	epoll_event* m_events;
-	Socket** m_sockets;
-	int m_maxConn;
+	Socket _acceptSocket;
+	int _kfd;
+	struct kevent* _kevents;
+	int _maxConn;
+	Socket** _sockets;
+
 };
 #endif

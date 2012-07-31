@@ -1,5 +1,7 @@
 #include "EpollServer.h"
 
+#ifdef __linux__
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -61,7 +63,8 @@ void EpollServer::update()
 
 void EpollServer::onDisconnected(SocketHandle* sock)
 {
-  closeSocket(sock);
+ 	m_sockets[sock->m_sock] = 0; 
+	closeSocket(sock);
 }
 
 void EpollServer::onConnected(SocketHandle* sock)
@@ -81,3 +84,5 @@ void EpollServer::closeSocket(SocketHandle* sock)
 	epoll_event& e = m_events[sock->m_sock];
 	epoll_ctl(m_epollfd, EPOLL_CTL_DEL, sock->m_sock, &e);
 }
+
+#endif

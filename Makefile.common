@@ -7,4 +7,5 @@ INCS :=
 -include util/Makefile
 -include util/concurrent/Makefile
 #cd proto &&  make -f Makefile.gen
+-include schedule/Makefile
 -include proto/Makefile

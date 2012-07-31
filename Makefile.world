@@ -1,10 +1,8 @@
 -include Makefile.common
--include gate/Makefile
+-include world/Makefile
 
-#bin/gate : $(OBJS) #$(INCS)
-bin/gate : $(OBJS) 
-	g++ -o $@ -I. -I/usr/include/lua5.1 $(OBJS) -lprotobuf -llua -L3rd/lua-5.1.4/src
-	#g++ -o $@ -I. -I/usr/include/lua5.1 $(OBJS) $(INCS) 
-
+bin/world : $(OBJS) 
+	g++ -o $@ -I. $(OBJS) -lprotobuf -llua 
+	g++ -o $@ -I. -I/usr/include/lua5.1 $(OBJS) -lprotobuf -llua #-L3rd/lua-5.1.4/src
 clean:
-	rm -f util/*.o util/concurrent/*.o net/*.o proto/*.o gate/*.o bin/gate
+	rm -f util/*.o util/concurrent/*.o net/*.o proto/*.o world/*.o bin/world
